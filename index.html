@@ -278,6 +278,30 @@
       display: block;
     }
 
+    /* Reset Section */
+    .reset-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .btn-reset {
+      background: #ffffff;
+      color: #a8426d;
+      border: 2px dashed #ff70a6;
+      padding: 8px 18px;
+      border-radius: 15px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-reset:hover {
+      background: #ffe3e8;
+      color: #ff477e;
+    }
+
     @keyframes popIn {
       0% { transform: scale(0.6); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
@@ -362,154 +386,158 @@
   <div class="container">
     <header>
       <h1>Nuestro Reto de 30 Días 💖</h1>
-      <p class="subtitle">Un desafío lleno de amor para acortar la distancia ✨</p>
+      <p class="subtitle">Un desafío lleno de amor para estar más cerquita tú y yo ✨</p>
     </header>
 
     <div class="progress-box">
-      <div class="progress-title" id="progressText">¡Comenzemos este reto juntos! (0 / 30)</div>
+      <div class="progress-title" id="progressText">¡Comencemos este reto juntos mi amor! (0 / 30)</div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
       </div>
     </div>
 
     <div class="grid-container" id="grid"></div>
+
+    <div class="reset-container">
+      <button class="btn-reset" onclick="resetAllProgress()">🔄 Reiniciar todo a cero (para tus pruebas)</button>
+    </div>
   </div>
 
   <!-- Modal Popup -->
   <div class="modal-overlay" id="modal">
     <div class="modal-box">
       <div class="modal-icon">🎉💖✨</div>
-      <div class="modal-title">¡Desafío Completado!</div>
+      <div class="modal-title">¡Desafío Completado Reina!</div>
       <div class="modal-message" id="modalLoveText"></div>
-      <button class="btn-modal" onclick="closeModal()">¡Te amo muchísimo! 💕</button>
+      <button class="btn-modal" onclick="closeModal()">¡Te amo muchísimo mi vida! 💕</button>
     </div>
   </div>
 
   <script>
     const challengesData = [
       {
-        task: "Envíense una foto de su espacio actual o de lo primero que ven al despertar.",
-        love: "¡Me haces extremadamente feliz cada día! 💕"
+        task: "Mándame una foto de tu espacio actual o de lo primero que ves al despertar hoy.",
+        love: "¡Me haces extremadamente feliz cada día, reina! 💕"
       },
       {
-        task: "Compartan su canción favorita del momento y escúchenla exactamente al mismo tiempo.",
-        love: "¡Estoy muy orgulloso de ti y de todo lo que eres! 🌟"
+        task: "Compartamos nuestra canción favorita del momento y escuchemosla exactamente al mismo tiempo.",
+        love: "¡Estoy muy orgulloso de ti y de todo lo que eres, bb! 🌟"
       },
       {
-        task: "Envíense un mensaje de voz contando su recuerdo favorito juntos o su llamada más divertida.",
+        task: "Mándame un audio contándome tu recuerdo favorito juntos o nuestra llamada más divertida.",
         love: "Sos la mejor persona del mundo entero, mi vida. 🥰"
       },
       {
-        task: "Escriban una cartita o nota corta a mano, tómenle foto y envíensela.",
-        love: "Cada día a tu lado (aunque sea a distancia) es un regalo precioso. 💌"
+        task: "Escribe una cartita o nota corta a mano, tómale foto y mándamela.",
+        love: "Cada día a tu lado es un regalo precioso, reina hermosa. 💌"
       },
       {
-        task: "Hagan una lista de 5 cosas que admiran del otro y léanlas por llamada.",
+        task: "Hagamos una lista de 5 cosas que admiramos del otro y leámonoslas por llamada.",
         love: "Eres mi persona favorita en todo el universo. 🌍❤️"
       },
       {
-        task: "Envíense un meme o sticker gracioso que represente perfectamente a la otra persona.",
-        love: "Amo tu sonrisa y la forma en que alegras mis días. 😊✨"
+        task: "Mándame un meme o sticker gracioso que sientas que me describe perfecto a mí o a nosotros.",
+        love: "Amo tu sonrisa y la forma en que alegras mis días, bb. 😊✨"
       },
       {
-        task: "Recreen una foto antigua propia y compárenla juntos.",
-        love: "¡Mi lugar favorito en el mundo siempre es a tu lado! 🏰💖"
+        task: "Recrea una foto antigua tuya o de los dos y mándamela para compararla.",
+        love: "¡Mi lugar favorito en el mundo siempre es contigo, reina! 🏰💖"
       },
       {
-        task: "Noche de película o serie juntos usando Watch Party o Discord.",
-        love: "Eres el amor de mi vida y mi mejor compañía. 🍿🎬"
+        task: "Noche de peli o serie juntos por Discord o Watch Party. ¡Escríbeme para elegir cuál ver!",
+        love: "Eres el amor de mi vida y mi mejor compañía siempre. 🍿🎬"
       },
       {
-        task: "Envíense una fotito de lo que almorzaron o cenaron el día de hoy.",
+        task: "Mándame una fotito de lo que vas a almorzar o cenar hoy.",
         love: "¡Gracias por existir y llenar mi vida de tanto amor! 🌸"
       },
       {
-        task: "Hagan un 'House Tour' o 'Outfit Check' rápido en un video de un minuto.",
-        love: "Te ves hermosa/o siempre, me fascina todo de ti. 🔥😍"
+        task: "Grábame un mini 'House Tour' o un 'Outfit Check' rápido en video para verte bella.",
+        love: "Te ves hermosa siempre, me fascina absolutamente todo de ti, bb. 🔥😍"
       },
       {
-        task: "Envíense un pedido sorpresa de comida, postre o café a domicilio.",
-        love: "Tu dulzura no tiene límites, me enamoras cada segundo. 🍰❤️"
+        task: "Enviémonos un detalle o snack sorpresa a domicilio. Escríbeme qué se te antoja hoy mi reina.",
+        love: "Tu dulzura no tiene límites, me enamoras cada segundo más. 🍰❤️"
       },
       {
-        task: "Lean un capítulo de un libro, cómic o artículo juntos y coméntenlo.",
-        love: "Me encanta aprender y descubrir cosas nuevas contigo. 📚✨"
+        task: "Leamos un capítulo de un libro, cómic o artículo juntos y comentémoslo en llamada.",
+        love: "Me encanta aprender y descubrir cosas nuevas a tu lado, mi vida. 📚✨"
       },
       {
-        task: "Hagan un test de personalidad o de 'Lenguajes del Amor' en línea y miren sus resultados.",
-        love: "Hacemos el equipo perfecto, encajamos perfectamente. 🧩💕"
+        task: "Hagamos un test de personalidad o de 'Lenguajes del Amor' en línea y compartamos los resultados.",
+        love: "Hacemos el equipo perfecto, encajamos increíble. 🧩💕"
       },
       {
-        task: "Tengan una cita por videollamada súper bien arreglados como si salieran a un restaurante.",
-        love: "¡Sos un sueño hecho realidad, nunca lo olvides! 👑💖"
+        task: "Cita por videollamada elegante: ve poniéndote súper linda, arreglemos la hora y escríbeme reina bb.",
+        love: "¡Sos un sueño hecho realidad, nunca lo olvides hermosa! 👑💖"
       },
       {
-        task: "Jueguen una partida de algún videojuego en línea juntos (Roblox, trivial, Parchís, etc.).",
-        love: "Contigo la vida siempre es más divertida y bonita. 🎮🥳"
+        task: "Jugemos una partida en línea juntos (Roblox, Parchís, o lo que quieras). ¡Escríbeme para entrar!",
+        love: "Contigo la vida siempre es más divertida y bonita, reina. 🎮🥳"
       },
       {
-        task: "Háganse 3 preguntas profundas sobre el futuro o sobre cómo se han sentido últimamente.",
-        love: "Amo la conexión tan profunda y única que tenemos. 🌌❤️"
+        task: "Hagámonos 3 preguntas profundas sobre nuestro futuro o sobre cómo nos hemos sentido últimamente.",
+        love: "Amo la conexión tan profunda y única que tenemos tú y yo. 🌌❤️"
       },
       {
-        task: "Preparen la misma bebida o snack y tómenselo mientras conversan rico.",
-        love: "Brindo por nosotros y por todo lo hermoso que nos espera. 🥂💖"
+        task: "Preparemos la misma bebida o snack y tomémoslo en videollamada mientras hablamos rico.",
+        love: "Brindo por nosotros y por todo lo hermoso que se nos viene. 🥂💖"
       },
       {
-        task: "Armen una playlist colaborativa en Spotify con canciones que les recuerden a su historia.",
-        love: "Eres mi melodía favorita en todo momento. 🎵💘"
+        task: "Agrega 3 canciones a nuestra playlist compartida de Spotify que te recuerden a nosotros.",
+        love: "Eres mi melodía favorita en todo momento, mi vida. 🎵💘"
       },
       {
-        task: "Envíense una lista con 3 lugares que sueñan con visitar juntos.",
-        love: "Pronto vamos a recorrer el mundo entero juntos. ✈️🗺️"
+        task: "Mándame una lista con 3 lugares del mundo que sueñas que visitemos juntos.",
+        love: "Pronto vamos a recorrer el mundo entero juntitos, reina. ✈️🗺️"
       },
       {
-        task: "Jueguen a 'Verdad o Reto' con preguntas y retos divertidos por chat.",
-        love: "Me encantas en todas tus formas y facetas. 😜❤️"
+        task: "Juguemos a 'Verdad o Reto' con preguntas y retos divertidos por chat.",
+        love: "Me encantas en todas tus formas y facetas, bb. 😜❤️"
       },
       {
-        task: "Envíense un dibujo improvisado (hecho en Paint, papel o WhatsApp) del otro.",
+        task: "Hazme un dibujo improvisado tuyo (a mano o digital) y mándamelo.",
         love: "Para mí eres la obra de arte más perfecta del planeta. 🎨😍"
       },
       {
-        task: "Planeen su próximo reencuentro ideal: qué comerían, a dónde irían y el primer abrazo.",
-        love: "Contando los días para abrazarte súper fuerte y no soltarte. 🫂❤️"
+        task: "Planiemos nuestro próximo reencuentro ideal: qué comeremos, a dónde iremos y nuestro primer abrazo.",
+        love: "Contando los días para abrazarte súper fuerte y no soltarte más. 🫂❤️"
       },
       {
-        task: "Graben un video corto contando algo divertido o curioso que les haya pasado en la semana.",
-        love: "Amo escuchar tu voz y ver la luz de tus ojos. 🎥✨"
+        task: "Grábame un video corto contándome algo divertido o curioso que te haya pasado esta semana.",
+        love: "Amo escuchar tu voz y ver la luz de tus ojos, mi reina. 🎥✨"
       },
       {
-        task: "Envíense un screenshot de la pantalla de inicio de sus teléfonos.",
-        love: "Ocupas el lugar más especial de mi corazón (y de mi pantalla). 📱💖"
+        task: "Mándame un screenshot de la pantalla de inicio o fondo de tu teléfono.",
+        love: "Ocupas el lugar más especial de mi corazón (y de mi pantalla), bb. 📱💖"
       },
       {
-        task: "Noche de preguntas y respuestas: cada uno puede hacer 3 preguntas sin filtro.",
-        love: "Confío en ti ciegamente, eres mi refugio seguro. 🛡️💕"
+        task: "Noche de preguntas sin filtro: podemos hacernos 3 preguntas directas cada uno.",
+        love: "Confío en ti ciegamente, eres mi refugio seguro, mi vida. 🛡️💕"
       },
       {
-        task: "Compartan una meta personal a corto plazo y piensen cómo pueden apoyarse.",
-        love: "Siempre voy a estar aquí para apoyarte y aplaudir tus logros. 👏🌟"
+        task: "Compartamos una meta personal a corto plazo y pensemos cómo apoyarnos el uno al otro.",
+        love: "Siempre voy a estar aquí para apoyarte y aplaudir tus logros, reina. 👏🌟"
       },
       {
-        task: "Mándense una nota de voz deseándole un bonito día al otro antes de que despierte.",
-        love: "Despertar sabiendo que estás en mi vida es la mayor bendición. 🌅❤️"
+        task: "Mándame una nota de voz deseándome un bonito día antes de que yo despierte.",
+        love: "Despertar sabiendo que estás en mi vida es mi mayor bendición. 🌅❤️"
       },
       {
-        task: "Hagan un collage rápido con capturas de pantalla de sus videollamadas del mes.",
-        love: "Miren cuánto hemos compartido y sonreído juntos. 📸🥰"
+        task: "Hagamos un collage rápido con capturas de pantalla de nuestras videollamadas de este mes.",
+        love: "Miren cuánto hemos compartido y sonreído juntos, bb. 📸🥰"
       },
       {
-        task: "Escriban en una nota 3 promesas hermosas para el próximo mes de relación.",
+        task: "Escríbeme en una nota 3 promesas hermosas para nuestro próximo mes juntos.",
         love: "Te prometo amarte, cuidarte y hacerte feliz cada día más. 💍💖"
       },
       {
-        task: "Videollamada especial de celebración por terminar el reto, brindando por su amor.",
-        love: "¡LO LOGRAMOS MI AMOR! Sos lo mejor que me ha pasado en la vida. 🎉👑❤️"
+        task: "Videollamada especial de celebración por terminar este reto juntos, brindando por nuestro amor.",
+        love: "¡LO LOGRAMOS MI REINA! Sos lo mejor que me ha pasado en la vida. 🎉👑❤️"
       }
     ];
 
-    // LocalStorage con estado permanente (No se desmarca)
+    // LocalStorage con estado permanente
     let completedStates = JSON.parse(localStorage.getItem('reto_pareja_permanente')) || {};
 
     const grid = document.getElementById('grid');
@@ -520,6 +548,7 @@
 
     function createBackgroundHearts() {
       const container = document.getElementById('bgHearts');
+      container.innerHTML = '';
       for (let i = 0; i < 20; i++) {
         const heart = document.createElement('div');
         heart.className = 'heart-bg';
@@ -539,7 +568,7 @@
     }
 
     function completeDay(index) {
-      if (completedStates[index]) return; // Si ya está completado, no hace nada (permanente)
+      if (completedStates[index]) return;
 
       completedStates[index] = true;
       localStorage.setItem('reto_pareja_permanente', JSON.stringify(completedStates));
@@ -556,6 +585,15 @@
       modal.classList.remove('active');
     }
 
+    function resetAllProgress() {
+      if (confirm("¿Quieres reiniciar todas las casillas para dejárselo como nuevo a tu reina?")) {
+        completedStates = {};
+        localStorage.removeItem('reto_pareja_permanente');
+        renderGrid();
+        updateProgress();
+      }
+    }
+
     function renderGrid() {
       grid.innerHTML = '';
       challengesData.forEach((item, index) => {
@@ -570,11 +608,11 @@
           <div>
             <span class="day-badge">Día ${dayNum}</span>
             <div class="challenge-text">${item.task}</div>
-            ${!isDone ? `<div class="callout-prompt">👉 Día ${dayNum}: Regresa acá y confirma si completaste el día :)</div>` : ''}
+            ${!isDone ? `<div class="callout-prompt">👉 Día ${dayNum}: Regresa acá y confirma si completaste el día con tu novio :)</div>` : ''}
           </div>
           ${!isDone ? `
             <button class="btn-complete" onclick="completeDay(${index})">
-              ¡Completado! ✨
+              ¡Completado reina! ✨
             </button>
           ` : `
             <div class="love-reward">
