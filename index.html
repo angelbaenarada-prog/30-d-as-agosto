@@ -3,251 +3,594 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reto de 30 Días Juntos 💖</title>
+  <title>NUESTRO RETO DE 30 DÍAS 💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #ff4b72;
-      --primary-light: #ffe6eb;
-      --secondary: #6c5ce7;
-      --bg: #fff5f7;
-      --card-bg: #ffffff;
-      --text: #2d3436;
-      --text-muted: #636e72;
-      --border-radius: 16px;
+      --pink-dark: #ff477e;
+      --pink-main: #ff70a6;
+      --pink-light: #ff85a1;
+      --pink-soft: #fbb1bd;
+      --bg-gradient: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 50%, #f7cad0 100%);
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --text-main: #5c223a;
+      --gold: #ffb703;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      padding: 20px 15px 40px;
-      max-width: 900px;
-      margin: 0 auto;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      font-family: 'Fredoka', sans-serif;
+      color: var(--text-main);
+      padding: 20px 15px 60px;
+      position: relative;
+      overflow-x: hidden;
     }
 
+    /* Floating Hearts Background Animation */
+    .bg-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart-bg {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 20px;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
     header {
       text-align: center;
       margin-bottom: 25px;
+      background: var(--card-bg);
+      padding: 25px 20px;
+      border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(238, 156, 167, 0.3);
+      border: 3px solid #ffffff;
+      backdrop-filter: blur(5px);
     }
 
     h1 {
-      color: var(--primary);
-      font-size: 1.8rem;
-      margin-bottom: 8px;
+      font-family: 'Caveat', cursive;
+      font-size: 3rem;
+      color: var(--pink-dark);
+      text-shadow: 2px 2px 0px #ffffff;
+      margin-bottom: 5px;
+      line-height: 1;
     }
 
-    p.subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
+    .subtitle {
+      font-size: 1.1rem;
+      color: #8c3a5c;
+      font-weight: 500;
     }
 
-    .progress-container {
+    /* Progress bar */
+    .progress-box {
       background: var(--card-bg);
-      padding: 15px;
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+      border: 3px solid #ffffff;
       text-align: center;
     }
 
-    .progress-bar-bg {
-      background: var(--primary-light);
-      height: 12px;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 10px;
+    .progress-title {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--pink-dark);
+      margin-bottom: 8px;
     }
 
-    .progress-bar-fill {
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    .progress-bar {
+      background: #ffe3e8;
+      height: 22px;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid #ffb3c1;
+      position: relative;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #ff70a6, #ff477e, #ff0a54);
       height: 100%;
       width: 0%;
-      transition: width 0.3s ease;
+      border-radius: 15px;
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .calendar-grid {
+    /* Grid */
+    .grid-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
     }
 
-    .day-card {
+    /* Cards */
+    .card {
       background: var(--card-bg);
-      border-radius: var(--border-radius);
-      padding: 16px;
-      border: 2px solid transparent;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-      transition: all 0.2s ease;
-      position: relative;
-      cursor: pointer;
+      border-radius: 24px;
+      padding: 22px 18px;
+      border: 3px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(220, 100, 130, 0.15);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
+      overflow: hidden;
     }
 
-    .day-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 28px rgba(220, 100, 130, 0.25);
     }
 
-    .day-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
+    .day-badge {
+      display: inline-block;
+      background: linear-gradient(45deg, var(--pink-main), var(--pink-dark));
+      color: white;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(255, 71, 126, 0.3);
+      margin-bottom: 12px;
+      align-self: flex-start;
     }
 
-    .day-number {
-      font-weight: bold;
-      color: var(--primary);
-      font-size: 1.1rem;
+    .challenge-text {
+      font-size: 1.05rem;
+      line-height: 1.45;
+      color: #4a152b;
+      margin-bottom: 15px;
+      font-weight: 500;
     }
 
-    .checkbox {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 2px solid #ddd;
+    .callout-prompt {
+      font-size: 0.88rem;
+      color: #a8426d;
+      background: #fff0f3;
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--pink-main);
+      font-style: italic;
+    }
+
+    /* Buttons */
+    .btn-complete {
+      background: linear-gradient(45deg, #ff477e, #ff70a6);
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 71, 126, 0.35);
+      transition: all 0.2s ease;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn-complete:hover {
+      transform: scale(1.03);
+      background: linear-gradient(45deg, #e03163, #ff5c93);
+    }
+
+    .btn-complete:active {
+      transform: scale(0.97);
+    }
+
+    /* Completed state */
+    .card.completed {
+      background: linear-gradient(135deg, #fff0f3 0%, #ffe3e8 100%);
+      border-color: #ff85a1;
+      box-shadow: 0 6px 16px rgba(255, 112, 166, 0.2);
+    }
+
+    .card.completed .day-badge {
+      background: #ff0a54;
+    }
+
+    .card.completed .btn-complete {
+      display: none;
+    }
+
+    .card.completed .callout-prompt {
+      display: none;
+    }
+
+    .love-reward {
+      display: none;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      background: #ffffff;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 2px dashed #ff477e;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .card.completed .love-reward {
+      display: block;
+    }
+
+    .love-reward-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ff477e;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .love-reward-text {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #c9184a;
+      line-height: 1.2;
+    }
+
+    .completed-check {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.6rem;
+      color: #ff0a54;
+      display: none;
+    }
+
+    .card.completed .completed-check {
+      display: block;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Modal for celebration */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s ease;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
-    .day-card.completed {
-      border-color: var(--primary);
-      background: var(--primary-light);
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
     }
 
-    .day-card.completed .checkbox {
-      background: var(--primary);
-      border-color: var(--primary);
+    .modal-box {
+      background: #ffffff;
+      padding: 30px 25px;
+      border-radius: 30px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      border: 4px solid #ff70a6;
+      box-shadow: 0 15px 35px rgba(255, 71, 126, 0.4);
+      transform: scale(0.8);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .day-card.completed .checkbox::after {
-      content: '✓';
+    .modal-overlay.active .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-icon {
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: var(--pink-dark);
+      margin-bottom: 10px;
+    }
+
+    .modal-message {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: #c9184a;
+      margin-bottom: 20px;
+      background: #ffe3e8;
+      padding: 12px;
+      border-radius: 15px;
+    }
+
+    .btn-modal {
+      background: var(--pink-dark);
       color: white;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .day-card.completed .day-text {
-      text-decoration: line-through;
-      color: var(--text-muted);
-    }
-
-    .day-text {
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-
-    @media (max-width: 480px) {
-      .calendar-grid {
-        grid-template-columns: 1fr;
-      }
+      border: none;
+      padding: 10px 25px;
+      border-radius: 20px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Nuestro Reto de 30 Días 💌</h1>
-    <p class="subtitle">Un detalle nuevo cada día para estar más cerca</p>
-  </header>
+  <div class="bg-hearts" id="bgHearts"></div>
 
-  <div class="progress-container">
-    <span id="progress-text">Progreso: 0 de 30 días completados</span>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="progress-fill"></div>
+  <div class="container">
+    <header>
+      <h1>Nuestro Reto de 30 Días 💖</h1>
+      <p class="subtitle">Un desafío lleno de amor para acortar la distancia ✨</p>
+    </header>
+
+    <div class="progress-box">
+      <div class="progress-title" id="progressText">¡Comenzemos este reto juntos! (0 / 30)</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="grid-container" id="grid"></div>
+  </div>
+
+  <!-- Modal Popup -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-box">
+      <div class="modal-icon">🎉💖✨</div>
+      <div class="modal-title">¡Desafío Completado!</div>
+      <div class="modal-message" id="modalLoveText"></div>
+      <button class="btn-modal" onclick="closeModal()">¡Te amo muchísimo! 💕</button>
     </div>
   </div>
 
-  <div class="calendar-grid" id="calendar"></div>
-
   <script>
-    const challenges = [
-      "Foto de tu espacio actual o de lo primero que ves al despertar.",
-      "Compartir canción favorita del momento y escucharla al tiempo.",
-      "Mensaje de voz contando un recuerdo favorito que tengan juntos.",
-      "Escribir una carta corta a mano, tomarle foto y enviarla.",
-      "Lista de 5 cosas que admiras del otro y leerlas por llamada.",
-      "Enviar un meme o sticker que represente perfecto a la otra persona.",
-      "Recrear una foto antigua propia y compararla.",
-      "Noche de película o serie juntos por Discord/Watch Party.",
-      "Foto de lo que almorzaron o cenaron hoy.",
-      "Hacer un mini 'House Tour' u 'Outfit Check' en un video corto.",
-      "Enviar un detalle o snack sorpresa a domicilio al otro.",
-      "Leer un capítulo de un libro o artículo y comentarlo.",
-      "Hacer un test de personalidad/lenguajes del amor y ver resultados.",
-      "Cita por videollamada bien arreglados como si salieran.",
-      "Partida de videojuego en línea juntos (Roblox, trivial, etc.).",
-      "3 preguntas profundas sobre el futuro o cómo se han sentido.",
-      "Preparar la misma bebida/snack y tomárselo conversando.",
-      "Playlist colaborativa en Spotify con canciones de la relación.",
-      "Lista con 3 lugares que sueñan con visitar juntos.",
-      "Jugar a 'Verdad o Reto' con preguntas/retos ligeros por chat.",
-      "Dibujo improvisado (a mano o digital) hecho por cada uno.",
-      "Planear el próximo reencuentro ideal: comida, sitio y primer plan.",
-      "Video corto contando algo divertido/curioso de la semana.",
-      "Screenshot de la pantalla de inicio o fondo del teléfono.",
-      "Noche de preguntas sin filtro: 3 preguntas directas cada uno.",
-      "Compartir una meta personal a corto plazo y cómo apoyarse.",
-      "Nota de voz deseando bonito día antes de que el otro despierte.",
-      "Collage rápido con capturas de sus videollamadas del mes.",
-      "Escribir 3 promesas en una nota para el próximo mes.",
-      "Videollamada especial de celebración reflexionando sobre el reto."
+    const challengesData = [
+      {
+        task: "Envíense una foto de su espacio actual o de lo primero que ven al despertar.",
+        love: "¡Me haces extremadamente feliz cada día! 💕"
+      },
+      {
+        task: "Compartan su canción favorita del momento y escúchenla exactamente al mismo tiempo.",
+        love: "¡Estoy muy orgulloso de ti y de todo lo que eres! 🌟"
+      },
+      {
+        task: "Envíense un mensaje de voz contando su recuerdo favorito juntos o su llamada más divertida.",
+        love: "Sos la mejor persona del mundo entero, mi vida. 🥰"
+      },
+      {
+        task: "Escriban una cartita o nota corta a mano, tómenle foto y envíensela.",
+        love: "Cada día a tu lado (aunque sea a distancia) es un regalo precioso. 💌"
+      },
+      {
+        task: "Hagan una lista de 5 cosas que admiran del otro y léanlas por llamada.",
+        love: "Eres mi persona favorita en todo el universo. 🌍❤️"
+      },
+      {
+        task: "Envíense un meme o sticker gracioso que represente perfectamente a la otra persona.",
+        love: "Amo tu sonrisa y la forma en que alegras mis días. 😊✨"
+      },
+      {
+        task: "Recreen una foto antigua propia y compárenla juntos.",
+        love: "¡Mi lugar favorito en el mundo siempre es a tu lado! 🏰💖"
+      },
+      {
+        task: "Noche de película o serie juntos usando Watch Party o Discord.",
+        love: "Eres el amor de mi vida y mi mejor compañía. 🍿🎬"
+      },
+      {
+        task: "Envíense una fotito de lo que almorzaron o cenaron el día de hoy.",
+        love: "¡Gracias por existir y llenar mi vida de tanto amor! 🌸"
+      },
+      {
+        task: "Hagan un 'House Tour' o 'Outfit Check' rápido en un video de un minuto.",
+        love: "Te ves hermosa/o siempre, me fascina todo de ti. 🔥😍"
+      },
+      {
+        task: "Envíense un pedido sorpresa de comida, postre o café a domicilio.",
+        love: "Tu dulzura no tiene límites, me enamoras cada segundo. 🍰❤️"
+      },
+      {
+        task: "Lean un capítulo de un libro, cómic o artículo juntos y coméntenlo.",
+        love: "Me encanta aprender y descubrir cosas nuevas contigo. 📚✨"
+      },
+      {
+        task: "Hagan un test de personalidad o de 'Lenguajes del Amor' en línea y miren sus resultados.",
+        love: "Hacemos el equipo perfecto, encajamos perfectamente. 🧩💕"
+      },
+      {
+        task: "Tengan una cita por videollamada súper bien arreglados como si salieran a un restaurante.",
+        love: "¡Sos un sueño hecho realidad, nunca lo olvides! 👑💖"
+      },
+      {
+        task: "Jueguen una partida de algún videojuego en línea juntos (Roblox, trivial, Parchís, etc.).",
+        love: "Contigo la vida siempre es más divertida y bonita. 🎮🥳"
+      },
+      {
+        task: "Háganse 3 preguntas profundas sobre el futuro o sobre cómo se han sentido últimamente.",
+        love: "Amo la conexión tan profunda y única que tenemos. 🌌❤️"
+      },
+      {
+        task: "Preparen la misma bebida o snack y tómenselo mientras conversan rico.",
+        love: "Brindo por nosotros y por todo lo hermoso que nos espera. 🥂💖"
+      },
+      {
+        task: "Armen una playlist colaborativa en Spotify con canciones que les recuerden a su historia.",
+        love: "Eres mi melodía favorita en todo momento. 🎵💘"
+      },
+      {
+        task: "Envíense una lista con 3 lugares que sueñan con visitar juntos.",
+        love: "Pronto vamos a recorrer el mundo entero juntos. ✈️🗺️"
+      },
+      {
+        task: "Jueguen a 'Verdad o Reto' con preguntas y retos divertidos por chat.",
+        love: "Me encantas en todas tus formas y facetas. 😜❤️"
+      },
+      {
+        task: "Envíense un dibujo improvisado (hecho en Paint, papel o WhatsApp) del otro.",
+        love: "Para mí eres la obra de arte más perfecta del planeta. 🎨😍"
+      },
+      {
+        task: "Planeen su próximo reencuentro ideal: qué comerían, a dónde irían y el primer abrazo.",
+        love: "Contando los días para abrazarte súper fuerte y no soltarte. 🫂❤️"
+      },
+      {
+        task: "Graben un video corto contando algo divertido o curioso que les haya pasado en la semana.",
+        love: "Amo escuchar tu voz y ver la luz de tus ojos. 🎥✨"
+      },
+      {
+        task: "Envíense un screenshot de la pantalla de inicio de sus teléfonos.",
+        love: "Ocupas el lugar más especial de mi corazón (y de mi pantalla). 📱💖"
+      },
+      {
+        task: "Noche de preguntas y respuestas: cada uno puede hacer 3 preguntas sin filtro.",
+        love: "Confío en ti ciegamente, eres mi refugio seguro. 🛡️💕"
+      },
+      {
+        task: "Compartan una meta personal a corto plazo y piensen cómo pueden apoyarse.",
+        love: "Siempre voy a estar aquí para apoyarte y aplaudir tus logros. 👏🌟"
+      },
+      {
+        task: "Mándense una nota de voz deseándole un bonito día al otro antes de que despierte.",
+        love: "Despertar sabiendo que estás en mi vida es la mayor bendición. 🌅❤️"
+      },
+      {
+        task: "Hagan un collage rápido con capturas de pantalla de sus videollamadas del mes.",
+        love: "Miren cuánto hemos compartido y sonreído juntos. 📸🥰"
+      },
+      {
+        task: "Escriban en una nota 3 promesas hermosas para el próximo mes de relación.",
+        love: "Te prometo amarte, cuidarte y hacerte feliz cada día más. 💍💖"
+      },
+      {
+        task: "Videollamada especial de celebración por terminar el reto, brindando por su amor.",
+        love: "¡LO LOGRAMOS MI AMOR! Sos lo mejor que me ha pasado en la vida. 🎉👑❤️"
+      }
     ];
 
-    const calendarContainer = document.getElementById('calendar');
-    const progressText = document.getElementById('progress-text');
-    const progressFill = document.getElementById('progress-fill');
+    // LocalStorage con estado permanente (No se desmarca)
+    let completedStates = JSON.parse(localStorage.getItem('reto_pareja_permanente')) || {};
 
-    // Cargar progreso desde localStorage
-    let savedProgress = JSON.parse(localStorage.getItem('reto_pareja_progress')) || {};
+    const grid = document.getElementById('grid');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const modal = document.getElementById('modal');
+    const modalLoveText = document.getElementById('modalLoveText');
+
+    function createBackgroundHearts() {
+      const container = document.getElementById('bgHearts');
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart-bg';
+        heart.innerHTML = ['💖', '💕', '🌸', '✨', '💗'][Math.floor(Math.random() * 5)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (6 + Math.random() * 8) + 's';
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        container.appendChild(heart);
+      }
+    }
 
     function updateProgress() {
-      const completedCount = Object.values(savedProgress).filter(Boolean).length;
-      progressText.textContent = `Progreso: ${completedCount} de 30 días completados`;
-      const percentage = (completedCount / 30) * 100;
-      progressFill.style.width = `${percentage}%`;
+      const count = Object.keys(completedStates).length;
+      const percentage = (count / 30) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = `¡Progreso de Nuestro Amor! (${count} de 30 completados) 💕`;
     }
 
-    function toggleDay(index) {
-      savedProgress[index] = !savedProgress[index];
-      localStorage.setItem('reto_pareja_progress', JSON.stringify(savedProgress));
-      renderCalendar();
-    }
+    function completeDay(index) {
+      if (completedStates[index]) return; // Si ya está completado, no hace nada (permanente)
 
-    function renderCalendar() {
-      calendarContainer.innerHTML = '';
-      challenges.forEach((challenge, index) => {
-        const isCompleted = !!savedProgress[index];
-        const card = document.createElement('div');
-        card.className = `day-card ${isCompleted ? 'completed' : ''}`;
-        card.onclick = () => toggleDay(index);
+      completedStates[index] = true;
+      localStorage.setItem('reto_pareja_permanente', JSON.stringify(completedStates));
 
-        card.innerHTML = `
-          <div>
-            <div class="day-header">
-              <span class="day-number">Día ${index + 1}</span>
-              <div class="checkbox"></div>
-            </div>
-            <div class="day-text">${challenge}</div>
-          </div>
-        `;
-        calendarContainer.appendChild(card);
-      });
+      // Mostrar popup con la frase de amor
+      modalLoveText.textContent = challengesData[index].love;
+      modal.classList.add('active');
+
+      renderGrid();
       updateProgress();
     }
 
-    renderCalendar();
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    function renderGrid() {
+      grid.innerHTML = '';
+      challengesData.forEach((item, index) => {
+        const isDone = !!completedStates[index];
+        const dayNum = index + 1;
+
+        const card = document.createElement('div');
+        card.className = `card ${isDone ? 'completed' : ''}`;
+
+        card.innerHTML = `
+          <div class="completed-check">💖</div>
+          <div>
+            <span class="day-badge">Día ${dayNum}</span>
+            <div class="challenge-text">${item.task}</div>
+            ${!isDone ? `<div class="callout-prompt">👉 Día ${dayNum}: Regresa acá y confirma si completaste el día :)</div>` : ''}
+          </div>
+          ${!isDone ? `
+            <button class="btn-complete" onclick="completeDay(${index})">
+              ¡Completado! ✨
+            </button>
+          ` : `
+            <div class="love-reward">
+              <div class="love-reward-title">Mensaje de mi corazón:</div>
+              <div class="love-reward-text">"${item.love}"</div>
+            </div>
+          `}
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    createBackgroundHearts();
+    renderGrid();
+    updateProgress();
   </script>
 </body>
 </html>
-
