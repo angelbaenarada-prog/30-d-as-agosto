@@ -6,17 +6,16 @@
   <title>NUESTRO RETO DE 30 DÍAS 💖</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
       --pink-dark: #ff477e;
       --pink-main: #ff70a6;
       --pink-light: #ff85a1;
-      --pink-soft: #fbb1bd;
       --bg-gradient: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 50%, #f7cad0 100%);
-      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-bg: rgba(255, 255, 255, 0.95);
       --text-main: #5c223a;
-      --gold: #ffb703;
     }
 
     * {
@@ -35,13 +34,10 @@
       overflow-x: hidden;
     }
 
-    /* Floating Hearts Background Animation */
+    /* Corazoncitos Flotantes de Fondo */
     .bg-hearts {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
@@ -66,7 +62,7 @@
       z-index: 1;
     }
 
-    /* Header */
+    /* Encabezado */
     header {
       text-align: center;
       margin-bottom: 25px;
@@ -75,12 +71,11 @@
       border-radius: 30px;
       box-shadow: 0 10px 25px rgba(238, 156, 167, 0.3);
       border: 3px solid #ffffff;
-      backdrop-filter: blur(5px);
     }
 
     h1 {
       font-family: 'Caveat', cursive;
-      font-size: 3rem;
+      font-size: 3.2rem;
       color: var(--pink-dark);
       text-shadow: 2px 2px 0px #ffffff;
       margin-bottom: 5px;
@@ -93,7 +88,7 @@
       font-weight: 500;
     }
 
-    /* Progress bar */
+    /* Barra de Progreso */
     .progress-box {
       background: var(--card-bg);
       padding: 20px;
@@ -106,7 +101,7 @@
 
     .progress-title {
       font-family: 'Caveat', cursive;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       font-weight: 700;
       color: var(--pink-dark);
       margin-bottom: 8px;
@@ -118,7 +113,6 @@
       border-radius: 15px;
       overflow: hidden;
       border: 2px solid #ffb3c1;
-      position: relative;
     }
 
     .progress-fill {
@@ -129,14 +123,14 @@
       transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Grid */
+    /* Grid de Tarjetas */
     .grid-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 20px;
     }
 
-    /* Cards */
+    /* Tarjeta */
     .card {
       background: var(--card-bg);
       border-radius: 24px;
@@ -148,11 +142,10 @@
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      overflow: hidden;
     }
 
     .card:hover {
-      transform: translateY(-5px) scale(1.02);
+      transform: translateY(-5px);
       box-shadow: 0 12px 28px rgba(220, 100, 130, 0.25);
     }
 
@@ -188,7 +181,6 @@
       font-style: italic;
     }
 
-    /* Buttons */
     .btn-complete {
       background: linear-gradient(45deg, #ff477e, #ff70a6);
       color: white;
@@ -202,83 +194,110 @@
       box-shadow: 0 5px 15px rgba(255, 71, 126, 0.35);
       transition: all 0.2s ease;
       width: 100%;
-      text-align: center;
     }
 
     .btn-complete:hover {
       transform: scale(1.03);
-      background: linear-gradient(45deg, #e03163, #ff5c93);
     }
 
-    .btn-complete:active {
-      transform: scale(0.97);
-    }
-
-    /* Completed state */
+    /* Estado Completado */
     .card.completed {
       background: linear-gradient(135deg, #fff0f3 0%, #ffe3e8 100%);
       border-color: #ff85a1;
-      box-shadow: 0 6px 16px rgba(255, 112, 166, 0.2);
     }
 
-    .card.completed .day-badge {
-      background: #ff0a54;
-    }
-
-    .card.completed .btn-complete {
-      display: none;
-    }
-
+    .card.completed .btn-complete,
     .card.completed .callout-prompt {
       display: none;
     }
 
-    .love-reward {
-      display: none;
-      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* Caja del Mensaje Oculto / Revelado */
+    .secret-box {
+      margin-top: 10px;
       background: #ffffff;
-      padding: 12px 14px;
-      border-radius: 16px;
+      padding: 14px;
+      border-radius: 18px;
       border: 2px dashed #ff477e;
       text-align: center;
-      margin-top: 10px;
+      position: relative;
     }
 
-    .card.completed .love-reward {
-      display: block;
+    /* Estado Oculto antes de dar clic */
+    .secret-box.locked .love-text {
+      filter: blur(8px);
+      user-select: none;
+      opacity: 0.5;
     }
 
-    .love-reward-title {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #ff477e;
+    .secret-box.locked::after {
+      content: '🔒 Toca "Completado" para desbloquear mi mensaje';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.85rem;
       font-weight: 700;
-      margin-bottom: 4px;
+      color: #ff477e;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 6px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .love-reward-text {
+    /* Estado Desbloqueado */
+    .secret-box.unlocked {
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      background: #fff0f5;
+    }
+
+    .secret-box.unlocked .love-text {
+      filter: none;
+      opacity: 1;
       font-family: 'Caveat', cursive;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
       color: #c9184a;
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
-    .completed-check {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      font-size: 1.6rem;
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Animación de la Palabra Flotante con Brillitos */
+    .floating-text-anim {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+      font-family: 'Caveat', cursive;
+      font-size: 2.8rem;
+      font-weight: 700;
       color: #ff0a54;
-      display: none;
+      text-shadow: 0 0 10px #ffffff, 0 0 20px #ff70a6, 2px 2px 0px #ffffff;
+      animation: floatUpAndSparkle 2.2s ease-out forwards;
+      white-space: nowrap;
     }
 
-    .card.completed .completed-check {
-      display: block;
+    @keyframes floatUpAndSparkle {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5) translateY(0px);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2) translateY(-20px);
+      }
+      80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) translateY(-80px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9) translateY(-120px);
+      }
     }
 
-    /* Reset Section */
     .reset-container {
       text-align: center;
       margin-top: 40px;
@@ -288,10 +307,10 @@
       background: #ffffff;
       color: #a8426d;
       border: 2px dashed #ff70a6;
-      padding: 8px 18px;
+      padding: 10px 20px;
       border-radius: 15px;
       font-family: 'Fredoka', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -300,82 +319,6 @@
     .btn-reset:hover {
       background: #ffe3e8;
       color: #ff477e;
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.6); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* Modal for celebration */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .modal-box {
-      background: #ffffff;
-      padding: 30px 25px;
-      border-radius: 30px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      border: 4px solid #ff70a6;
-      box-shadow: 0 15px 35px rgba(255, 71, 126, 0.4);
-      transform: scale(0.8);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .modal-overlay.active .modal-box {
-      transform: scale(1);
-    }
-
-    .modal-icon {
-      font-size: 3.5rem;
-      margin-bottom: 10px;
-    }
-
-    .modal-title {
-      font-family: 'Caveat', cursive;
-      font-size: 2.2rem;
-      color: var(--pink-dark);
-      margin-bottom: 10px;
-    }
-
-    .modal-message {
-      font-family: 'Caveat', cursive;
-      font-size: 1.8rem;
-      color: #c9184a;
-      margin-bottom: 20px;
-      background: #ffe3e8;
-      padding: 12px;
-      border-radius: 15px;
-    }
-
-    .btn-modal {
-      background: var(--pink-dark);
-      color: white;
-      border: none;
-      padding: 10px 25px;
-      border-radius: 20px;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -399,17 +342,7 @@
     <div class="grid-container" id="grid"></div>
 
     <div class="reset-container">
-      <button class="btn-reset" onclick="resetAllProgress()">🔄 Reiniciar todo a cero (para tus pruebas)</button>
-    </div>
-  </div>
-
-  <!-- Modal Popup -->
-  <div class="modal-overlay" id="modal">
-    <div class="modal-box">
-      <div class="modal-icon">🎉💖✨</div>
-      <div class="modal-title">¡Desafío Completado Reina!</div>
-      <div class="modal-message" id="modalLoveText"></div>
-      <button class="btn-modal" onclick="closeModal()">¡Te amo muchísimo mi vida! 💕</button>
+      <button class="btn-reset" onclick="resetAllProgress()">🔄 Reiniciar todo a cero (para probar de nuevo)</button>
     </div>
   </div>
 
@@ -428,11 +361,11 @@
         love: "Sos la mejor persona del mundo entero, mi vida. 🥰"
       },
       {
-        task: "Escribe una cartita o nota corta a mano, tómale foto y mándamela.",
+        task: "Escribe una cartita o nota corta a mano, tómale foto y mándamela si o si jjsjsjs.",
         love: "Cada día a tu lado es un regalo precioso, reina hermosa. 💌"
       },
       {
-        task: "Hagamos una lista de 5 cosas que admiramos del otro y leámonoslas por llamada.",
+        task: "Hagamos una lista de 5 cosas que admiramos del otro y leámonoslas por llamada si o si.",
         love: "Eres mi persona favorita en todo el universo. 🌍❤️"
       },
       {
@@ -448,7 +381,7 @@
         love: "Eres el amor de mi vida y mi mejor compañía siempre. 🍿🎬"
       },
       {
-        task: "Mándame una fotito de lo que vas a almorzar o cenar hoy.",
+        task: "Mándame una fotito de lo que mas te gustaria hacer conmigo dame ideass.",
         love: "¡Gracias por existir y llenar mi vida de tanto amor! 🌸"
       },
       {
@@ -456,7 +389,7 @@
         love: "Te ves hermosa siempre, me fascina absolutamente todo de ti, bb. 🔥😍"
       },
       {
-        task: "Enviémonos un detalle o snack sorpresa a domicilio. Escríbeme qué se te antoja hoy mi reina.",
+        task: "Enviémonos un detalle o snack sorpresa a domicilio si puedes enviarme estaria bien me haria feliz :D. ya te pido algo mi reina.",
         love: "Tu dulzura no tiene límites, me enamoras cada segundo más. 🍰❤️"
       },
       {
@@ -488,7 +421,7 @@
         love: "Eres mi melodía favorita en todo momento, mi vida. 🎵💘"
       },
       {
-        task: "Mándame una lista con 3 lugares del mundo que sueñas que visitemos juntos.",
+        task: "hagamos una lista con 3 lugares del mundo que soñamos que visitemos juntos.",
         love: "Pronto vamos a recorrer el mundo entero juntitos, reina. ✈️🗺️"
       },
       {
@@ -500,7 +433,7 @@
         love: "Para mí eres la obra de arte más perfecta del planeta. 🎨😍"
       },
       {
-        task: "Planiemos nuestro próximo reencuentro ideal: qué comeremos, a dónde iremos y nuestro primer abrazo.",
+        task: "Planiemos nuestro próximo encuentro en google maps ideal: qué comeremos, a dónde iremos y nuestro primer abrazo.",
         love: "Contando los días para abrazarte súper fuerte y no soltarte más. 🫂❤️"
       },
       {
@@ -537,14 +470,11 @@
       }
     ];
 
-    // LocalStorage con estado permanente
     let completedStates = JSON.parse(localStorage.getItem('reto_pareja_permanente')) || {};
 
     const grid = document.getElementById('grid');
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
-    const modal = document.getElementById('modal');
-    const modalLoveText = document.getElementById('modalLoveText');
 
     function createBackgroundHearts() {
       const container = document.getElementById('bgHearts');
@@ -567,22 +497,48 @@
       progressText.textContent = `¡Progreso de Nuestro Amor! (${count} de 30 completados) 💕`;
     }
 
-    function completeDay(index) {
+    function triggerFloatingText(text, event) {
+      // Crear elemento de texto flotante
+      const floatEl = document.createElement('div');
+      floatEl.className = 'floating-text-anim';
+      floatEl.innerHTML = `✨ ${text} ✨`;
+
+      // Posición según el clic o centro de la pantalla
+      const x = event ? event.clientX : window.innerWidth / 2;
+      const y = event ? event.clientY : window.innerHeight / 2;
+
+      floatEl.style.left = x + 'px';
+      floatEl.style.top = y + 'px';
+
+      document.body.appendChild(floatEl);
+
+      // Lanzar confeti y brillos
+      if (window.confetti) {
+        confetti({
+          particleCount: 50,
+          spread: 70,
+          origin: { x: x / window.innerWidth, y: y / window.innerHeight },
+          colors: ['#ff477e', '#ff70a6', '#ffffff', '#ffb703']
+        });
+      }
+
+      // Eliminar elemento después de la animación
+      setTimeout(() => {
+        floatEl.remove();
+      }, 2200);
+    }
+
+    function completeDay(index, event) {
       if (completedStates[index]) return;
 
       completedStates[index] = true;
       localStorage.setItem('reto_pareja_permanente', JSON.stringify(completedStates));
 
-      // Mostrar popup con la frase de amor
-      modalLoveText.textContent = challengesData[index].love;
-      modal.classList.add('active');
+      // Efecto interactivo de palabra flotante con brillos
+      triggerFloatingText(challengesData[index].love, event);
 
       renderGrid();
       updateProgress();
-    }
-
-    function closeModal() {
-      modal.classList.remove('active');
     }
 
     function resetAllProgress() {
@@ -604,22 +560,21 @@
         card.className = `card ${isDone ? 'completed' : ''}`;
 
         card.innerHTML = `
-          <div class="completed-check">💖</div>
           <div>
             <span class="day-badge">Día ${dayNum}</span>
             <div class="challenge-text">${item.task}</div>
             ${!isDone ? `<div class="callout-prompt">👉 Día ${dayNum}: Regresa acá y confirma si completaste el día con tu novio :)</div>` : ''}
           </div>
+
+          <div class="secret-box ${isDone ? 'unlocked' : 'locked'}">
+            <div class="love-text">"${item.love}"</div>
+          </div>
+
           ${!isDone ? `
-            <button class="btn-complete" onclick="completeDay(${index})">
+            <button class="btn-complete" style="margin-top:15px;" onclick="completeDay(${index}, event)">
               ¡Completado reina! ✨
             </button>
-          ` : `
-            <div class="love-reward">
-              <div class="love-reward-title">Mensaje de mi corazón:</div>
-              <div class="love-reward-text">"${item.love}"</div>
-            </div>
-          `}
+          ` : ''}
         `;
 
         grid.appendChild(card);
