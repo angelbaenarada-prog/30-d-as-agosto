@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto de 30 Días Juntos 💖</title>
+  <style>
+    :root {
+      --primary: #ff4b72;
+      --primary-light: #ffe6eb;
+      --secondary: #6c5ce7;
+      --bg: #fff5f7;
+      --card-bg: #ffffff;
+      --text: #2d3436;
+      --text-muted: #636e72;
+      --border-radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 20px 15px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .progress-container {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .progress-bar-bg {
+      background: var(--primary-light);
+      height: 12px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .day-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      border: 2px solid transparent;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .day-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .day-number {
+      font-weight: bold;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .day-card.completed {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .day-card.completed .checkbox {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .day-card.completed .checkbox::after {
+      content: '✓';
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .day-card.completed .day-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .day-text {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 480px) {
+      .calendar-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Nuestro Reto de 30 Días 💌</h1>
+    <p class="subtitle">Un detalle nuevo cada día para estar más cerca</p>
+  </header>
+
+  <div class="progress-container">
+    <span id="progress-text">Progreso: 0 de 30 días completados</span>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="calendar-grid" id="calendar"></div>
+
+  <script>
+    const challenges = [
+      "Foto de tu espacio actual o de lo primero que ves al despertar.",
+      "Compartir canción favorita del momento y escucharla al tiempo.",
+      "Mensaje de voz contando un recuerdo favorito que tengan juntos.",
+      "Escribir una carta corta a mano, tomarle foto y enviarla.",
+      "Lista de 5 cosas que admiras del otro y leerlas por llamada.",
+      "Enviar un meme o sticker que represente perfecto a la otra persona.",
+      "Recrear una foto antigua propia y compararla.",
+      "Noche de película o serie juntos por Discord/Watch Party.",
+      "Foto de lo que almorzaron o cenaron hoy.",
+      "Hacer un mini 'House Tour' u 'Outfit Check' en un video corto.",
+      "Enviar un detalle o snack sorpresa a domicilio al otro.",
+      "Leer un capítulo de un libro o artículo y comentarlo.",
+      "Hacer un test de personalidad/lenguajes del amor y ver resultados.",
+      "Cita por videollamada bien arreglados como si salieran.",
+      "Partida de videojuego en línea juntos (Roblox, trivial, etc.).",
+      "3 preguntas profundas sobre el futuro o cómo se han sentido.",
+      "Preparar la misma bebida/snack y tomárselo conversando.",
+      "Playlist colaborativa en Spotify con canciones de la relación.",
+      "Lista con 3 lugares que sueñan con visitar juntos.",
+      "Jugar a 'Verdad o Reto' con preguntas/retos ligeros por chat.",
+      "Dibujo improvisado (a mano o digital) hecho por cada uno.",
+      "Planear el próximo reencuentro ideal: comida, sitio y primer plan.",
+      "Video corto contando algo divertido/curioso de la semana.",
+      "Screenshot de la pantalla de inicio o fondo del teléfono.",
+      "Noche de preguntas sin filtro: 3 preguntas directas cada uno.",
+      "Compartir una meta personal a corto plazo y cómo apoyarse.",
+      "Nota de voz deseando bonito día antes de que el otro despierte.",
+      "Collage rápido con capturas de sus videollamadas del mes.",
+      "Escribir 3 promesas en una nota para el próximo mes.",
+      "Videollamada especial de celebración reflexionando sobre el reto."
+    ];
+
+    const calendarContainer = document.getElementById('calendar');
+    const progressText = document.getElementById('progress-text');
+    const progressFill = document.getElementById('progress-fill');
+
+    // Cargar progreso desde localStorage
+    let savedProgress = JSON.parse(localStorage.getItem('reto_pareja_progress')) || {};
+
+    function updateProgress() {
+      const completedCount = Object.values(savedProgress).filter(Boolean).length;
+      progressText.textContent = `Progreso: ${completedCount} de 30 días completados`;
+      const percentage = (completedCount / 30) * 100;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function toggleDay(index) {
+      savedProgress[index] = !savedProgress[index];
+      localStorage.setItem('reto_pareja_progress', JSON.stringify(savedProgress));
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      calendarContainer.innerHTML = '';
+      challenges.forEach((challenge, index) => {
+        const isCompleted = !!savedProgress[index];
+        const card = document.createElement('div');
+        card.className = `day-card ${isCompleted ? 'completed' : ''}`;
+        card.onclick = () => toggleDay(index);
+
+        card.innerHTML = `
+          <div>
+            <div class="day-header">
+              <span class="day-number">Día ${index + 1}</span>
+              <div class="checkbox"></div>
+            </div>
+            <div class="day-text">${challenge}</div>
+          </div>
+        `;
+        calendarContainer.appendChild(card);
+      });
+      updateProgress();
+    }
+
+    renderCalendar();
+  </script>
+</body>
+</html>
+
