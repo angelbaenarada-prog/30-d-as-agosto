@@ -361,11 +361,11 @@
         love: "Sos la mejor persona del mundo entero, mi vida. 🥰"
       },
       {
-        task: "Escribe una cartita o nota corta a mano, tómale foto y mándamela si o si jjsjsjs.",
+        task: "Escribe una cartita o nota corta a mano, tómale foto y mándamela.",
         love: "Cada día a tu lado es un regalo precioso, reina hermosa. 💌"
       },
       {
-        task: "Hagamos una lista de 5 cosas que admiramos del otro y leámonoslas por llamada si o si.",
+        task: "Hagamos una lista de 5 cosas que admiramos del otro y leámonoslas por llamada.",
         love: "Eres mi persona favorita en todo el universo. 🌍❤️"
       },
       {
@@ -381,7 +381,7 @@
         love: "Eres el amor de mi vida y mi mejor compañía siempre. 🍿🎬"
       },
       {
-        task: "Mándame una fotito de lo que mas te gustaria hacer conmigo dame ideass.",
+        task: "Mándame una fotito de lo que vas a almorzar o cenar hoy.",
         love: "¡Gracias por existir y llenar mi vida de tanto amor! 🌸"
       },
       {
@@ -389,8 +389,8 @@
         love: "Te ves hermosa siempre, me fascina absolutamente todo de ti, bb. 🔥😍"
       },
       {
-        task: "Jugemos una partida en línea juntos (Roblox, Parchís, o lo que quieras). ¡Escríbeme para entrar!,
-        love: "Tu dulzura no tiene límites, me enamoras cada segundo más. 🍰❤️"
+        task: "Jugemos una partida en línea juntos (Roblox, Parchís, o lo que quieras). ¡Escríbeme para entrar!",
+        love: "Contigo la vida siempre es más divertida y bonita, reina. 🎮🥳"
       },
       {
         task: "Leamos un capítulo de un libro, cómic o artículo juntos y comentémoslo en llamada.",
@@ -402,11 +402,11 @@
       },
       {
         task: "Cita por videollamada elegante: ve poniéndote súper linda, arreglemos la hora y escríbeme reina bb.",
-        love: "¡Sos un sueño hecho realidad, nunca lo olvides hermosa! feliz aniversario #6 te amo 👑💖"
+        love: "¡Sos un sueño hecho realidad, nunca lo olvides hermosa! 👑💖"
       },
       {
-        task: "Enviémonos un detalle o snack sorpresa a domicilio si puedes enviarme estaria bien me haria feliz :D. ya te pido algo mi reina."",
-        love: "Contigo la vida siempre es más divertida y bonita, reina. 🎮🥳"
+        task: "Enviémonos un detalle o snack sorpresa a domicilio. Escríbeme qué se te antoja hoy mi reina.",
+        love: "Tu dulzura no tiene límites, me enamoras cada segundo más. 🍰❤️"
       },
       {
         task: "Hagámonos 3 preguntas profundas sobre nuestro futuro o sobre cómo nos hemos sentido últimamente.",
@@ -421,19 +421,19 @@
         love: "Eres mi melodía favorita en todo momento, mi vida. 🎵💘"
       },
       {
-        task: "hagamos una lista con 3 lugares del mundo que soñamos que visitemos juntos.",
+        task: "Mándame una lista con 3 lugares del mundo que sueñas que visitemos juntos.",
         love: "Pronto vamos a recorrer el mundo entero juntitos, reina. ✈️🗺️"
       },
       {
         task: "Juguemos a 'Verdad o Reto' con preguntas y retos divertidos por chat.",
-        love: "Me encantas en todas tus formas , bb. 😜❤️"
+        love: "Me encantas en todas tus formas y facetas, bb. 😜❤️"
       },
       {
         task: "Hazme un dibujo improvisado tuyo (a mano o digital) y mándamelo.",
         love: "Para mí eres la obra de arte más perfecta del planeta. 🎨😍"
       },
       {
-        task: "Planiemos nuestro próximo encuentro en google maps ideal: qué comeremos, a dónde iremos y nuestro primer abrazo.",
+        task: "Planiemos nuestro próximo reencuentro ideal: qué comeremos, a dónde iremos y nuestro primer abrazo.",
         love: "Contando los días para abrazarte súper fuerte y no soltarte más. 🫂❤️"
       },
       {
@@ -442,7 +442,7 @@
       },
       {
         task: "Mándame un screenshot de la pantalla de inicio o fondo de tu teléfono.",
-        love: "Ocupas el lugar más especial de mi corazón (y de mi pantalla). 📱💖"
+        love: "Ocupas el lugar más especial de mi corazón (y de mi pantalla), bb. 📱💖"
       },
       {
         task: "Noche de preguntas sin filtro: podemos hacernos 3 preguntas directas cada uno.",
@@ -498,12 +498,10 @@
     }
 
     function triggerFloatingText(text, event) {
-      // Crear elemento de texto flotante
       const floatEl = document.createElement('div');
       floatEl.className = 'floating-text-anim';
       floatEl.innerHTML = `✨ ${text} ✨`;
 
-      // Posición según el clic o centro de la pantalla
       const x = event ? event.clientX : window.innerWidth / 2;
       const y = event ? event.clientY : window.innerHeight / 2;
 
@@ -512,7 +510,6 @@
 
       document.body.appendChild(floatEl);
 
-      // Lanzar confeti y brillos
       if (window.confetti) {
         confetti({
           particleCount: 50,
@@ -522,7 +519,6 @@
         });
       }
 
-      // Eliminar elemento después de la animación
       setTimeout(() => {
         floatEl.remove();
       }, 2200);
@@ -534,7 +530,6 @@
       completedStates[index] = true;
       localStorage.setItem('reto_pareja_permanente', JSON.stringify(completedStates));
 
-      // Efecto interactivo de palabra flotante con brillos
       triggerFloatingText(challengesData[index].love, event);
 
       renderGrid();
